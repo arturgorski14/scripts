@@ -1,6 +1,9 @@
+import logging
 import os
 import shutil
 from typing import Dict, List
+
+logger = logging.getLogger(__name__)
 
 
 class MoveFilesToFolders:
@@ -21,6 +24,6 @@ class MoveFilesToFolders:
         # Use shutil.move for safer file moving (handles errors better)
         try:
             shutil.move(src, destination)
-            print(f"{src} -> {destination}")
+            logger.debug(f"{src} -> {destination}")
         except Exception as e:
-            print(f"Error moving '{src}' to '{destination}': {e}")
+            logger.error(f"Error moving '{src}' to '{destination}': {e}")

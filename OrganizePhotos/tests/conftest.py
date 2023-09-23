@@ -6,9 +6,8 @@ import pytest
 
 
 @pytest.fixture
-def temp_dir():
-    with tempfile.TemporaryDirectory() as temp_dir:
-        yield temp_dir
+def temp_dir(tmp_path):
+    yield tmp_path
 
 
 def given_folder_contains_files(dir_path, filenames: Union[list | str]):
@@ -18,4 +17,6 @@ def given_folder_contains_files(dir_path, filenames: Union[list | str]):
         file_path = os.path.join(dir_path, filename)
         with open(file_path, "w") as f:
             f.write("Sample file content")
-    assert sorted(os.listdir(dir_path)) == sorted(filenames), "ERROR: INCORRECTLY PREPARED DATA!"
+    assert sorted(os.listdir(dir_path)) == sorted(
+        filenames
+    ), "ERROR: INCORRECTLY PREPARED DATA!"

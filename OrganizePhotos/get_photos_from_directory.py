@@ -3,6 +3,8 @@ import re
 from collections import defaultdict
 from typing import Dict, List
 
+from tqdm import tqdm
+
 
 class GetFilesFromDirectory:
     VALID_PATTERN = re.compile(
@@ -18,7 +20,9 @@ class GetFilesFromDirectory:
 
     def __call__(self, dir_path) -> Dict[str, List[str]]:
         files_by_date = defaultdict(list)
-        for filename in os.listdir(dir_path):
+        filenames = os.listdir(dir_path)
+
+        for filename in tqdm(filenames, desc="Processing Files"):
             if not self.is_valid_filename(filename) or not self.is_file(
                 dir_path, filename
             ):

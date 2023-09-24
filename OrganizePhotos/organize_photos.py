@@ -4,8 +4,6 @@ from parser import setup_parser
 from get_photos_from_directory import GetFilesFromDirectory
 from move_files_to_folders import MoveFilesToFolders
 
-# TODO: progressbar
-
 
 def organize_photos() -> None:
     logging.basicConfig(level=logging.INFO)

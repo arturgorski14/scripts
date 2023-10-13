@@ -1,6 +1,7 @@
 import logging
 from parser import setup_parser
 
+from file_types import ImageFileType, PanoramaFileType, VideoFileType
 from get_photos_from_directory import GetFilesFromDirectory
 from move_files_to_folders import MoveFilesToFolders
 
@@ -15,7 +16,9 @@ def organize_photos() -> None:
         parser.print_help()
         return
 
-    get_data_command = GetFilesFromDirectory()
+    get_data_command = GetFilesFromDirectory(
+        (ImageFileType(), VideoFileType(), PanoramaFileType())
+    )
     all_photo_files_by_date = get_data_command(args.directory_path)
     logger.debug(all_photo_files_by_date)
     move_files_command = MoveFilesToFolders()

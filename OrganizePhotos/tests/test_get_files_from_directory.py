@@ -8,6 +8,7 @@ from OrganizePhotos.tests.conftest import given_folder_contains_files
 
 EXPECTED_IMAGE_PATTERN: Pattern[str] = re.compile(r"^IMG_\d{8}_\d{6}\.jpg$")
 EXPECTED_VIDEO_PATTERN: Pattern[str] = re.compile(r"^VID_\d{8}_\d{6}\.mp4$")
+EXPECTED_PANORAMA_PATTERN: Pattern[str] = re.compile(r"^PANO_\d{8}_\d{6}\.jpg$")
 
 
 @pytest.mark.parametrize(
@@ -15,6 +16,7 @@ EXPECTED_VIDEO_PATTERN: Pattern[str] = re.compile(r"^VID_\d{8}_\d{6}\.mp4$")
     [
         ("IMG_20220410_105512.jpg", EXPECTED_IMAGE_PATTERN),
         ("VID_20231106_105512.mp4", EXPECTED_VIDEO_PATTERN),
+        ("PANO_20230916_173156.jpg", EXPECTED_PANORAMA_PATTERN),
     ],
 )
 def test_is_valid_filename_success(filename, expected_pattern):
@@ -29,6 +31,7 @@ def test_is_valid_filename_success(filename, expected_pattern):
     [
         "IMG_20220305_132952.jpg",
         "VID_20220305_132952.mp4",
+        "PANO_20231001_192309.jpg",
     ],
 )
 def test_validate_file_with_folder_name(tmpdir, folder_name_matching_pattern):
@@ -80,6 +83,22 @@ def test_validate_file_with_folder_name(tmpdir, folder_name_matching_pattern):
         "VID_20220410_105512.webp",
         "VID_20220410_105512.jpeg",
         "VID_20220410_105512.csv",
+        "PAN0_20220410_105512.jpg",
+        "PANOO_20220410_105512.jpg",
+        "PANOR_20220410_105512.jpg",
+        "PANO_202220410_105512.jpg",
+        "PANO_2020410_105512.jpg",
+        "PANO_20220410_1055512.jpg",
+        "PANO_20220410_10512.jpg",
+        "PANO_PANO_20220410_105512.jpg",
+        "PANO_20220410_105512.jpgg",
+        "IIMG_20220410_105512.jpg",
+        "PANO_20220410_105512.jpgg",
+        "PANO_20220410_105512.mp4",
+        "PANO_20220410_105512.png",
+        "PANO_20220410_105512.webp",
+        "PANO_20220410_105512.jpeg",
+        "PANO_20220410_105512.csv",
     ],
 )
 def test_is_valid_filename_failure(filename):

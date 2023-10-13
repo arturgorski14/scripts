@@ -13,6 +13,8 @@ class GetFilesFromDirectory:
             ^IMG_\d{8}_\d{6}\.jpg$   # Image pattern
             |               # OR
             ^VID_\d{8}_\d{6}\.mp4$   # Video pattern
+            |
+            ^PANO_\d{8}_\d{6}\.jpg$   # Panorama pattern
         )
         """,
         re.VERBOSE,

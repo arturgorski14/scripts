@@ -3,6 +3,8 @@ from abc import ABC
 from typing import Pattern
 
 
+# TODO: more dynamic patterns (allow other date formats)
+
 class FileType(ABC):
     pattern: Pattern[str]
 

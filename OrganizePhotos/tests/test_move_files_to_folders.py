@@ -1,9 +1,13 @@
 import os
 
+import logging
 import pytest
 
-from OrganizePhotos.move_files_to_folders import MoveFilesToFolders
-from OrganizePhotos.tests.conftest import given_folder_contains_files
+from OrganizePhotos.move_files_to_folders import MoveFilesToSubdirectories, MoveFilesToParentDirectories
+from OrganizePhotos.tests.conftest import given_folder_contains_files, create_directory_with_files
+
+
+logging.basicConfig(level=logging.DEBUG)
 
 
 @pytest.mark.parametrize(
@@ -45,7 +49,7 @@ def test_move_files_to_folders_by_date(temp_dir, filenames, expected_structure):
     given_folder_contains_files(temp_dir, filenames)
 
     # Act
-    command = MoveFilesToFolders()
+    command = MoveFilesToSubdirectories()
     command(temp_dir, expected_structure)
 
     # Assert
@@ -56,3 +60,15 @@ def test_move_files_to_folders_by_date(temp_dir, filenames, expected_structure):
         for filename in files:
             src_path = os.path.join(temp_dir, date, filename)
             assert os.path.exists(src_path)
+
+
+def test_move_files_to_parent_directory(temp_dir):
+    assert temp_dir
+    subfolder_path = os.path.join(str(temp_dir), "2023.10.07")
+
+    create_directory_with_files(temp_dir, subfolder_path, ["IMG_20231007_092448.jpg"])
+    command = MoveFilesToParentDirectories()
+    command(subfolder_path)
+
+    assert not os.path.exists(subfolder_path)
+    assert os.listdir(temp_dir) == ["IMG_20231007_092448.jpg"]

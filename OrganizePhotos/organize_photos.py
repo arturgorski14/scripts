@@ -3,10 +3,26 @@ from parser import setup_parser
 
 from file_types import ImageFileType, PanoramaFileType, VideoFileType
 from get_photos_from_directory import GetFilesFromDirectory
-from move_files_to_folders import MoveFilesToSubdirectories
+from move_files_to_folders import MoveFilesToSubdirectories, MoveFilesToParentDirectories
 
 
-def organize_photos() -> None:
+def organize_photos(dir_path) -> None:
+    get_data_command = GetFilesFromDirectory(
+        (ImageFileType(), VideoFileType(), PanoramaFileType())
+    )
+    all_photo_files_by_date = get_data_command(dir_path)
+    logger.debug(all_photo_files_by_date)
+    move_files_command = MoveFilesToSubdirectories()
+    move_files_command(dir_path, all_photo_files_by_date)
+    logger.info("Files moving finished!")
+
+
+def organize_photos2(dir_path) -> None:
+    move_files_command = MoveFilesToParentDirectories()
+    move_files_command(dir_path)
+
+
+if __name__ == "__main__":
     logging.basicConfig(level=logging.INFO)
     logger = logging.getLogger(__name__)
 
@@ -14,17 +30,6 @@ def organize_photos() -> None:
     args = parser.parse_args()
     if not args.directory_path:
         parser.print_help()
-        return
+        exit()
 
-    get_data_command = GetFilesFromDirectory(
-        (ImageFileType(), VideoFileType(), PanoramaFileType())
-    )
-    all_photo_files_by_date = get_data_command(args.directory_path)
-    logger.debug(all_photo_files_by_date)
-    move_files_command = MoveFilesToSubdirectories()
-    move_files_command(args.directory_path, all_photo_files_by_date)
-    logger.info("Files moving finished!")
-
-
-if __name__ == "__main__":
-    organize_photos()
+    organize_photos(args.directory_path)

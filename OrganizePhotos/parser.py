@@ -9,8 +9,8 @@ def setup_parser() -> argparse.PARSER:
             """,
     )
     parser.add_argument(
-        "-d",
-        "--directory_path",
+        "-f",
+        "--full_path",
         default=None,
         help="Full path to directory ex. C:\\Users\\User\\Photos",
     )

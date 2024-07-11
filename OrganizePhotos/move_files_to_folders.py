@@ -28,7 +28,6 @@ class MoveFilesToSubdirectories:
 
 
 class MoveFilesToParentDirectories:
-
     def __call__(self, dir_path: str) -> None:
         self._move_files(dir_path)
         self._remove_empty_directory(dir_path)
@@ -44,7 +43,9 @@ class MoveFilesToParentDirectories:
                 shutil.move(file_src_path, file_destination_path)
                 logging.debug(f"{file_src_path} -> {file_destination_path}")
             except Exception as e:
-                logging.error(f"Error moving '{file_src_path}' to '{file_destination_path}': {e}")
+                logging.error(
+                    f"Error moving '{file_src_path}' to '{file_destination_path}': {e}"
+                )
 
     @staticmethod
     def _remove_empty_directory(dir_path):

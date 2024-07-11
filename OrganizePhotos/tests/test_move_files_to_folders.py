@@ -1,11 +1,12 @@
+import logging
 import os
 
-import logging
 import pytest
 
-from OrganizePhotos.move_files_to_folders import MoveFilesToSubdirectories, MoveFilesToParentDirectories
-from OrganizePhotos.tests.conftest import given_folder_contains_files, create_directory_with_files
-
+from OrganizePhotos.move_files_to_folders import (MoveFilesToParentDirectories,
+                                                  MoveFilesToSubdirectories)
+from OrganizePhotos.tests.conftest import (create_directory_with_files,
+                                           given_folder_contains_files)
 
 logging.basicConfig(level=logging.DEBUG)
 

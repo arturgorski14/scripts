@@ -20,9 +20,9 @@ def setup_parser() -> argparse.PARSER:
         choices=["day", "month", "year"],
         default="day",
         help="Defines how to aggregate files."
-             "By year -> aggregates by YYYY."
-             "By month -> aggregates by YYYY.MM."
-             "By day -> aggregates by YYYY.MM.DD."
-             "Day is the default"
+        "By year -> aggregates by YYYY."
+        "By month -> aggregates by YYYY.MM."
+        "By day -> aggregates by YYYY.MM.DD."
+        "Day is the default",
     )
     return parser

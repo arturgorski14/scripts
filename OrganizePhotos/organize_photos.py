@@ -1,9 +1,11 @@
 import logging
+import sys
 from parser import setup_parser
 
 from file_types import ImageFileType, PanoramaFileType, VideoFileType
 from get_photos_from_directory import GetFilesFromDirectory
-from move_files_to_folders import MoveFilesToSubdirectories, MoveFilesToParentDirectories
+from move_files_to_folders import (MoveFilesToParentDirectories,
+                                   MoveFilesToSubdirectories)
 
 
 def organize_photos(dir_path) -> None:
@@ -28,8 +30,8 @@ if __name__ == "__main__":
 
     parser = setup_parser()
     args = parser.parse_args()
-    if not args.directory_path:
+    if not args.full_path:
         parser.print_help()
         exit()
 
-    organize_photos(args.directory_path)
+    organize_photos(args.full_path)
